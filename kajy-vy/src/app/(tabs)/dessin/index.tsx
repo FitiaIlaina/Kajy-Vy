@@ -177,29 +177,26 @@ const DrawScreen = () => {
     useEffect(() => {
         PickerTypeFerData();
     }, []);
-
-
-    // AJOUTER CETTE FONCTION COMPLÈTE
+    
     const straightenLine = (line: Line): Line => {
         if (line.length < 2) return line;
 
         const firstPoint = line[0];
         const lastPoint = line[line.length - 1];
 
-        // Calculer les différences
+        //  les différences
         const dx = Math.abs(lastPoint.x - firstPoint.x);
         const dy = Math.abs(lastPoint.y - firstPoint.y);
 
         // Seuil de tolérance pour considérer qu'une ligne doit être rectifiée
-        const tolerance = 40; // pixels - augmenté pour être plus permissif
+        const tolerance = 40; 
 
-        // Ligne trop courte, ne pas rectifier
+        // Ligne trop courte
         const lineLength = Math.sqrt(dx * dx + dy * dy);
         if (lineLength < 50) return line;
 
         // Si la ligne est proche de la verticale
         if (dx < tolerance && dy > dx * 1.5) {
-            // Rectifier en ligne verticale en gardant des points intermédiaires
             const avgX = (firstPoint.x + lastPoint.x) / 2;
             const numPoints = Math.min(line.length, 10); // Limiter à 10 points
             const newLine: Line = [];
@@ -214,7 +211,6 @@ const DrawScreen = () => {
 
         // Si la ligne est proche de l'horizontale
         if (dy < tolerance && dx > dy * 1.5) {
-            // Rectifier en ligne horizontale en gardant des points intermédiaires
             const avgY = (firstPoint.y + lastPoint.y) / 2;
             const numPoints = Math.min(line.length, 10);
             const newLine: Line = [];
@@ -247,9 +243,6 @@ const DrawScreen = () => {
             }
             return newLine;
         }
-
-
-        // Sinon, garder la ligne originale
         return line;
     };
 
@@ -452,8 +445,6 @@ const DrawScreen = () => {
 
             setAnalysisResult(result);
             setAnalysisVisible(true);
-
-            // Save to context
             try {
                 const surface = parseFloat(largeur) * parseFloat(hauteur);
                 const devisData = {
@@ -804,7 +795,6 @@ const DrawScreen = () => {
                     Alert.alert('Erreur', 'Impossible d\'ouvrir la fenêtre d\'impression');
                 }
             } else {
-                // SOLUTION MOBILE: Utiliser expo-print
                 const result = await Print.printToFileAsync({
                     html,
                     base64: false
@@ -954,7 +944,6 @@ const DrawScreen = () => {
                             });
                         }}
                         onResponderRelease={() => {
-                            // Rectifier la ligne
                             if (currentLine.current.length > 0) {
                                 const straightened = straightenLine(currentLine.current);
 
@@ -1494,5 +1483,6 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
     },
 });
+
 
 export default DrawScreen;
