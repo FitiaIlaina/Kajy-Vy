@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block main %}
+<main class="container" style="padding: 30px;">
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-success">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endwith %}
+
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Prix</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cons in consommables %}
+      <tr>
+        <td>{{ cons.id_cons }}</td>
+        <td>{{ cons.nom_cons }}</td>
+        <td>{{ cons.prix_cons }}</td>
+        <td>
+          <a href="/Admin-Fer/modifier/consommables/{{ cons.id_cons }}" class="btn btn-sm btn-primary">Modifier</a>
+          <form action="/Admin-Fer/supprimer/consommable/{{ cons.id_cons }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-sm btn-danger"
+              onclick="return confirm('Confirmer la suppression ?');">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      {% if cons_edit and cons_edit.id_cons == cons.id_cons %} <tr>
+        <td colspan="5">
+          <form action="/Admin-Fer/modifier/consommables/{{ cons.id_cons }}" method="POST" class="form-inline"> <input type="text"
+              name="nom_cons" class="form-control mr-2" value="{{ cons_edit.nom_cons }}" required> 
+              <input type="number" step="0.01" name="prix_cons"
+              class="form-control mr-2" value="{{ cons_edit.prix_cons }}" required> <button type="submit"
+              class="btn btn-success btn-sm" style=" background: linear-gradient(135deg, #6c757d 0%, #495057 100%);border-color: #6c757d;">Enregistrer</button> </form>
+        </td>
+      </tr> {% endif %}
+      {% else %}
+      <tr>
+        <td colspan="4" class="text-muted">Aucun consommable trouvé</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</main>
+<style>
+  
+  .table {
+    border-radius: 10px;
+    overflow: hidden;
+    
+    background: white;
+  }
+  .table thead th {
+    background: linear-gradient(135deg, #343a40 0%, #495057 100%);
+    border: none;
+    color: white;
+    font-weight: 600;
+   
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    padding: 15px 12px;
+  }
+.table tbody tr {
+    transition: all 0.3s ease;
+  }
+
+  .table tbody td {
+    padding: 12px;
+    vertical-align: middle;
+    border-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .btn-sm {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin: 0 2px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    border: none;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    
+  }
+
+  .btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    border: none;
+    
+  }
+
+  .btn-danger:hover {
+    transform: translateY(-1px);
+   
+  }
+.alert {
+    border: none;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+  }
+
+  .alert-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+  }
+
+  .alert-danger {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+  }
+</style>
+{% endblock %}

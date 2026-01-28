@@ -1,0 +1,11 @@
+flask
+flask-cors
+opencv-python-headless
+numpy
+Pillow
+cairosvg
+requests
+python-dotenv
+PyYAML
+bcrypt
+flask-jwt-extended

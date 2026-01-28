@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ADMIN</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Registration-Form-with-Photo.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+    <style>
+        body {
+            background: linear-gradient(135deg, #85888b 0%, #252627 50%, #000000 100%);;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .register-photo {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            background: transparent;
+            padding: 0;
+        }
+
+        .form-container {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #5c6165 0%, #18191a 100%) !important;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .alert {
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="register-photo">
+        <!-- Affichage des messages flash -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <!-- Affichage du message d'erreur -->
+                {% if message %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+        <div class="form-container">
+            <div class="image-holder"></div>
+            <form method="post" action="/Admin-inscription">
+                <h2 class="text-center"><strong>Créer un compte</strong></h2>
+                <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email" required></div>
+                <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Nom" required></div>
+                <div class="form-group"><input class="form-control" type="text" name="surname" placeholder="Prénom(s)" required></div>
+                <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Mot de passe" required minlength="6"></div>
+                <div class="form-group"><input class="form-control" type="password" name="confirmpassword"minlength="6" placeholder="Confirmer votre mot de passe" required></div>
+                <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background: linear-gradient(135deg, #5c6165 0%, #18191a 100%)">S'inscrire</button></div><a class="already" href="/Admin-connexion">Vous avez déjà un compte ? Cliquez-ici</a>
+            </form>
+        </div>
+    </section>
+   
+      <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+   
+      <script src="{{url_for('static', filename='bootstrap/js/bootstrap.min.js')}}"></script>
+</body>
+
+</html>

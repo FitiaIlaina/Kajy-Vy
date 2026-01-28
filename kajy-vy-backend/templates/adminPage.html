@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/Navigation-with-Button.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <style>
+    body {
+      background-color: linear-gradient(135deg, #85888b 0%, #252627 50%, #000000 100%);;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1050;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .modal-content {
+      background: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button bg-light">
+      <div class="container">
+        <a class="navbar-brand" style="color: #fff;" href="#">Kajy-Vy</a>
+        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+          <ul class="navbar-nav mr-auto">
+          </ul>
+          <span class="navbar-text actions">
+            <a class="login" href="">
+              {% if admin_email %}
+              <i class="fas fa-user-circle"></i> {{ admin_email }}
+              {% else %}
+              <i class="fas fa-user-circle"></i> Admin
+              {% endif %}
+            </a>
+            <a class="btn btn-light action-button" role="button" id="logout-btn" href="#">Se déconnecter</a>
+            
+            <div id="logout-modal" class="modal" style="display: none;">
+              <div class="modal-content"
+                style="background: #fff; border-radius: 10px; padding: 20px; text-align: center; max-width: 400px; margin: 100px auto; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                <p style="color: #000; font-size: 16px; margin-bottom: 20px;">
+                  Voulez-vous vraiment vous déconnecter ?
+                </p>
+                <div style="display: flex; justify-content: center; gap: 15px;">
+                  <button id="confirm-logout" class="btn btn-success"
+                    style="background-color: #484c4d; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">
+                    Oui
+                  </button>
+                  <button id="cancel-logout" class="btn"
+                    style="background-color: #fff; border: 2px solid grey; padding: 8px 16px; border-radius: 5px; cursor: pointer;">
+                    Non
+                  </button>
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-success">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endwith %}
+  <main class="container-fluid" style="padding: 40px; background-color: #f8f9fa; min-height: 100vh;">
+    <div class="row mb-5">
+      <div class="col-12 text-center">
+        <div class="card shadow-lg border-0"
+          style="background: linear-gradient(135deg, #9a9ba0 0%, #181919 100%); border-radius: 20px;">
+          <div class="card-body py-4">
+            <h2 class="text-white mb-2 font-weight-bold">
+              <i class="bi bi-speedometer2 me-3"></i>Tableau de Bord Kajy-Vy
+            </h2>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card shadow-lg border-0" style="border-radius: 20px; background-color: white;">
+          <div class="card-body p-5">
+            <div class="row g-4">
+              <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0"
+                  style="border-radius: 15px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                  <div class="card-body text-center p-4"
+                    style="background: linear-gradient(135deg, #636464 0%, #0e0e0e 100%); color: white; border-radius: 15px;">
+                    <div class="mb-3">
+                      <i class="bi bi-people display-4"></i>
+                    </div>
+                    <h5 class="card-title font-weight-bold mb-3">Liste des utilisateurs disponibles</h5>
+                    <p class="card-text mb-4 opacity-75">Gérer les comptes des utilisateurs</p>
+                    <a href="/Admin-Utilisateurs" class="btn btn-light btn-lg px-4"
+                      style="border-radius: 25px; font-weight: 500;">
+                      <i class="bi bi-eye me-2"></i>Voir la liste
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0"
+                  style="border-radius: 15px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                  <div class="card-body text-center p-4"
+                    style="background: linear-gradient(135deg, #0e0e0e 0%, #636464 100%); color: white; border-radius: 15px;">
+                    <div class="mb-3">
+                      <i class="bi bi-gear display-4"></i>
+                    </div>
+                    <h5 class="card-title font-weight-bold mb-3">Liste de références de fer</h5>
+                    <p class="card-text mb-4 opacity-75">Gérer les références de fer disponibles</p>
+                    <a href="/Admin-Fer" class="btn btn-light btn-lg px-4"
+                      style="border-radius: 25px; font-weight: 500;">
+                      <i class="bi bi-eye me-2"></i>Voir la liste
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0"
+                  style="border-radius: 15px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                  <div class="card-body text-center p-4"
+                    style="background: linear-gradient(135deg, #636464 0%, #0e0e0e 100%); color: white; border-radius: 15px;">
+                    <div class="mb-3">
+                      <i class="bi bi-box-seam display-4"></i>
+                    </div>
+                    <h5 class="card-title font-weight-bold mb-3">Liste de types de consommables</h5>
+                    <p class="card-text mb-4 opacity-75">Gérer les types de consommable</p>
+                    <a href="/Admin-Consommables" class="btn btn-light btn-lg px-4"
+                      style="border-radius: 25px; font-weight: 500;">
+                      <i class="bi bi-eye me-2"></i>Voir la liste
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </main>
+
+  <style>
+    .card:hover {
+      transform: translateY(-5px) !important;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .container-fluid {
+        padding: 20px !important;
+      }
+
+      .card-body {
+        padding: 2rem !important;
+      }
+
+      .display-4 {
+        font-size: 2rem !important;
+      }
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .card:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .card:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+  </style>
+
+  <div class="footer-2" style="background-color: #333;">
+    <div class="container">
+      <div class="row" style="justify-content: center;">
+        <div class="col-8 col-sm-6 col-md-6">
+          <p class="text-left" style="margin-top:5%;margin-bottom:3%;color: #fff;">© 2025 ANDRIAMALALA Fitia Ilaina</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const logoutBtn = document.getElementById("logout-btn");
+    const logoutModal = document.getElementById("logout-modal");
+    const confirmLogout = document.getElementById("confirm-logout");
+    const cancelLogout = document.getElementById("cancel-logout");
+
+    logoutBtn.onclick = () => {
+      logoutModal.style.display = "block";
+    };
+
+    cancelLogout.onclick = () => {
+      logoutModal.style.display = "none";
+    };
+
+    confirmLogout.onclick = () => {
+      window.location.href = "/Admin-deconnexion"; 
+    };
+
+    window.onclick = (event) => {
+      if (event.target == logoutModal) {
+        logoutModal.style.display = "none";
+      }
+    };
+
+    document.getElementById("btn-liste-fer").addEventListener("click", function (e) {
+      e.preventDefault();
+      document.getElementById("liste-fer").style.display = "block";
+      document.getElementById("liste-user").style.display = "none";
+
+    });
+
+    document.getElementById("btn-cons").addEventListener("click", function (e) {
+      e.preventDefault();
+      document.getElementById("liste-cons").style.display = "block";
+      document.getElementById("liste-fer").style.display = "none";
+      document.getElementById("liste-user").style.display = "none";
+
+    });
+
+  </script>
+
+</body>
+
+</html>

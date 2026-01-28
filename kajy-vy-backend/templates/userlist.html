@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block main %}
+<main class="container" style="padding: 30px;">
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-success">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endwith %}
+
+  <div id="liste-user" class="row">
+    <div class="col-md-6">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-secondary text-white">
+          <i class="bi bi-people"></i> Derniers utilisateurs
+        </div>
+        <ul class="list-group list-group-flush">
+          {% for user in users %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span style="color:black">{{ user.name }} {{ user.surname }}</span>
+            <a href="/Admin-Utilisateurs/voir/{{ user.id_user }}" class="btn btn-outline-secondary btn-sm" style="background: linear-gradient(135deg, #707171 0%, #333 100%); color: #fff;">
+              <i class="bi bi-eye-fill"></i> Voir
+            </a>
+          </li>
+          {% else %}
+          <li class="list-group-item text-muted">Aucun utilisateur trouvé</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+          <i class="bi bi-person-circle"></i> Détails de l'utilisateur
+        </div>
+        <div class="card-body">
+          {% if selected_user %}
+            <p><strong>ID :</strong> {{ selected_user.id_user }}</p>
+            <p><strong>Nom :</strong> {{ selected_user.name }}</p>
+            <p><strong>Prénom :</strong> {{ selected_user.surname }}</p>
+            <p><strong>Email :</strong> {{ selected_user.email }}</p>
+            <div class="actions mt-3">
+              <form action="/Admin-Fer/supprimer/{{ selected_user.id_user }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger"
+                  onclick="return confirm('Confirmer la suppression ?');">Supprimer</button>
+              </form>
+            </div>
+          {% else %}
+            <p class="text-muted">Sélectionnez un utilisateur dans la liste</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<style>
+  .card {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    font-weight: 600;
+  }
+
+  .list-group-item {
+    transition: background 0.2s ease;
+  }
+
+  .list-group-item:hover {
+    background: #f8f9fa;
+  }
+
+  .btn-outline-secondary {
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-secondary:hover {
+    background: #6c757d;
+    color: white;
+  }
+
+  .btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    border: none;
+  }
+
+  .btn-danger:hover {
+    transform: translateY(-1px);
+  }
+
+  .alert {
+    border: none;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+  }
+
+  .alert-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+  }
+</style>
+{% endblock %}
