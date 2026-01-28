@@ -1,0 +1,71 @@
+{
+  "expo": {
+    "name": "kajy-vy",
+    "slug": "pulse-box",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/kajyvy1.png",
+    "scheme": "kajy-vy",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "assets": [
+      "assets/data/*.mp3"
+    ],
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/kajyvy1.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.kajyvy.app",
+      "permissions": [
+        "READ_MEDIA_AUDIO",
+        "android.permission.ACCESS_MEDIA_LOCATION",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/kajyvy1.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/kajyvy.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+          "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ],
+      "expo-video",
+      "expo-sqlite"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "tsconfigPaths": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "3d7fab86-d3ef-4597-94f3-c555ae13460e"
+      }
+    },
+    "owner": "ilainafitia"
+  }
+}
