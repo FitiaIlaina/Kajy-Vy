@@ -680,7 +680,7 @@ const HomeScreen = () => {
                     Alert.alert('Erreur', 'Impossible d\'ouvrir la fenêtre d\'impression');
                 }
             } else {
-                // SOLUTION MOBILE: Utiliser expo-print
+               
                 const result = await Print.printToFileAsync({
                     html,
                     base64: false
@@ -1345,5 +1345,6 @@ const styles = StyleSheet.create({
         color: '#007bff',
     },
 });
+
 
 export default HomeScreen;
