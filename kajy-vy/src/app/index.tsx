@@ -5,20 +5,16 @@ import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { useAuth } from '@/components/AuthProvider'
 
-
 const logoImage = require('assets/images/kajyvy.png')
 
 const App = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [modalRemplir, setModalRemplir] = useState(false);
-
     const [loading, setLoading] = useState(false);
-
     const { login, isAuthenticated, isLoading } = useAuth();
 
     const SERVER_URL = 'http://localhost:5000';
-
 
     if (isLoading) {
         return (
@@ -58,7 +54,7 @@ const App = () => {
                 alignItems: 'center',
                 paddingHorizontal: 20
             }}>
-                {/* Subtle background decorative elements */}
+              
                 <View />
                 <View style={{
                     position: 'absolute',
@@ -79,7 +75,6 @@ const App = () => {
                             height: 200,
                             marginBottom: -5,
 
-
                         }}
                         resizeMode="contain"
                     />
@@ -99,7 +94,6 @@ const App = () => {
                         </Text>
                     </View>
 
-                    {/* Login Form Card */}
                     <View style={{
                         width: 320,
                         backgroundColor: 'white',
@@ -114,8 +108,6 @@ const App = () => {
                         borderColor: '#f0f0f0'
                     }}>
                         <View style={{ marginBottom: 20 }}>
-
-
 
                             <TextInput
                                 keyboardType="email-address"
@@ -181,7 +173,6 @@ const App = () => {
 
                         </TouchableOpacity>
 
-                        {/* Forgot Password */}
                         <Link href="/signup" asChild style={{
                             alignItems: 'center',
                             marginTop: 16
@@ -196,7 +187,6 @@ const App = () => {
                         </Link>
                     </View>
 
-                    {/* Footer */}
 
                 </View>
             </View>
@@ -221,7 +211,6 @@ const App = () => {
             </Modal>
 
             <StatusBar style="dark" translucent={false} />
-
 
         </SafeAreaProvider>
     )
@@ -269,5 +258,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#f8f9fa',
     },
 })
+
 
 export default App
