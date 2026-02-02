@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-
 import { Stack, Link } from 'expo-router'
 import { AuthProvider } from '../components/AuthProvider'
-
 
 const RootNavigation = () => {
 	return (
@@ -14,11 +12,6 @@ const RootNavigation = () => {
 			</Stack>
 
 		</AuthProvider>
-
-
-
-
-
 	)
 }
 
