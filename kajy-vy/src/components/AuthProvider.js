@@ -61,12 +61,10 @@ export const AuthProvider = ({ children }) => {
         
         await AuthService.logout();
         
-        
         setIsAuthenticated(false);
         setUserEmail(null);
         setIsLoading(false);
         
- 
         setTimeout(() => {
             
             if (typeof window !== 'undefined' && window.location) {
@@ -97,8 +95,6 @@ export const AuthProvider = ({ children }) => {
     const signup = async (name, surname, email, password) => {
         try {
             const result = await AuthService.signup(name, surname, email, password);
-            
-            // Auto-login after successful signup
 
             await AuthService.login(email, password);
             setUserEmail(email);
@@ -136,4 +132,5 @@ export const useAuth = () => {
         throw new Error('useAuth doit être utilisé à l\'intérieur de AuthProvider');
     }
     return context;
+
 };
