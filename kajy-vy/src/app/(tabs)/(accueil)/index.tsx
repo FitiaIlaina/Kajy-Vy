@@ -118,7 +118,6 @@ const HomeScreen = () => {
     const [svgContent, setSvgContent] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState('1');
 
-
     const [typeCadre, setTypeCadre] = useState("");
     const [typeBati, setTypeBati] = useState("");
     const [typeDeco, setTypeDeco] = useState("");
@@ -231,7 +230,6 @@ const HomeScreen = () => {
                 return;
             }
         }
-
         setLoading(true);
 
         try {
@@ -284,7 +282,6 @@ const HomeScreen = () => {
                 Alert.alert('Erreur', result.error);
                 return;
             }
-
             setAnalysisResult(result);
             setAnalysisVisible(true);
 
@@ -346,17 +343,12 @@ const HomeScreen = () => {
                 }
             }
             result.type === 'grille' ? 'grille' : 'inconnu';
-
-
-
         } catch (error) {
             console.error('Erreur analyse:', error);
             Alert.alert('Erreur', 'Impossible d\'analyser l\'image. Vérifiez que le serveur Flask est démarré.');
         } finally {
             setLoading(false);
         }
-
-
     };
 
     const handleSend = () => {
@@ -372,7 +364,7 @@ const HomeScreen = () => {
     };
 
     const createSVGWebViewContent = (svg: string) => {
-        // Nettoyer le SVG
+        // Nettoye le SVG
         let cleanedSvg = svg
             .replace(/<\?xml.*?\?>/, "")
             .replace(/<!DOCTYPE.*?>/, "")
@@ -381,8 +373,6 @@ const HomeScreen = () => {
         // Extraire viewBox
         const viewBoxMatch = cleanedSvg.match(/viewBox="([^"]+)"/);
         let viewBoxValue = viewBoxMatch ? viewBoxMatch[1] : "0 0 700 450";
-
-        // Forcer les bons attributs
         if (cleanedSvg.includes('<svg')) {
             cleanedSvg = cleanedSvg.replace(
                 /<svg[^>]*>/,
@@ -439,7 +429,7 @@ const HomeScreen = () => {
             let detailsHTML = '';
 
             if (analysisResult?.details) {
-                // BÂTI
+                // -----------BÂTI
                 if (analysisResult?.details.bati) {
                     detailsHTML += `
                 <div class="detail-card">
@@ -459,7 +449,7 @@ const HomeScreen = () => {
                 </div>`;
                 }
 
-                // CADRE
+                // -----------CADRE
                 if (analysisResult?.details.cadre) {
                     detailsHTML += `
                 <div class="detail-card">
@@ -479,7 +469,7 @@ const HomeScreen = () => {
                 </div>`;
                 }
 
-                // TÔLE
+                // ----------------TÔLE
                 if (analysisResult?.details.tole) {
                     detailsHTML += `
                 <div class="detail-card">
@@ -499,7 +489,7 @@ const HomeScreen = () => {
                 </div>`;
                 }
 
-                // DÉCORATION
+                //-------------------- DÉCORATION
                 if (analysisResult?.details.decoration) {
                     detailsHTML += `
                 <div class="detail-card">
@@ -519,7 +509,7 @@ const HomeScreen = () => {
                 </div>`;
                 }
 
-                // MAIN D'OEUVRE
+                // ----------------------MAIN D'OEUVRE
                 if (analysisResult?.details.main_oeuvre) {
                     detailsHTML += `
                 <div class="detail-card">
@@ -531,7 +521,7 @@ const HomeScreen = () => {
                 </div>`;
                 }
 
-                // MAJORATION
+                // -----------MAJORATION
                 if (analysisResult?.details.majoration_30p) {
                     detailsHTML += `
                 <div class="detail-card">
@@ -548,7 +538,7 @@ const HomeScreen = () => {
                 detailsHTML = '<div class="no-details"><strong>Aucun détail disponible</strong></div>';
             }
 
-            // Generate a proper title for the PDF
+            // titre PDF
             const pdfTitle = `Devis ${analysisResult?.type?.toUpperCase() || 'Structure'} - ${new Date().toLocaleDateString('fr-FR')}`;
 
             const html = `<!DOCTYPE html>
@@ -643,12 +633,8 @@ const HomeScreen = () => {
         <p><strong>Dimensions:</strong> ${longueur} m × ${hauteur} m</p>
         <p><strong>Surface:</strong> ${surface} m²</p>
     </div>
-    
-   
-    
     <h2>Détails de l'analyse</h2>
     ${detailsHTML}
-
      <div class="price">
         <div style="font-size: 14px; margin-bottom: 8px;">PRIX TOTAL ESTIMÉ</div>
         <div style="font-size: 24px; font-weight: bold;">${analysisResult?.prix_total?.toLocaleString() || 'N/A'} Ar</div>
@@ -724,8 +710,6 @@ const HomeScreen = () => {
                     <Text style={styles.priceLabel}>Prix total estimé</Text>
                     <Text style={styles.priceValue}>{prix_total?.toLocaleString() || 'N/A'} Ar</Text>
                 </View>
-
-
                 {details?.bati && (
                     <View style={styles.detailItem}>
                         <Text style={styles.detailTitle}>
@@ -762,8 +746,6 @@ const HomeScreen = () => {
                         <Text>• Prix peinture: {details.decoration.prix_peinture?.toLocaleString()} Ar</Text>
                     </View>
                 )}
-
-
                 {details?.majoration_30p && (
                     <View style={styles.detailItem}>
                         <Text style={styles.detailTitle}>Majoration (35%)</Text>
@@ -840,8 +822,6 @@ const HomeScreen = () => {
         }
     ];
 
-
-
     return (
         <SafeAreaView style={{ flex: 1, padding: 20 }}>
             <ScrollView scrollEnabled={true}>
@@ -907,7 +887,6 @@ const HomeScreen = () => {
                                     {listTole.map((item) => (
                                         <Picker.Item key={item.id_tole} label={item.type_tole} value={item.type_tole} />
                                     ))}
-
 
                                 </Picker>
                             </View>
@@ -989,12 +968,9 @@ const HomeScreen = () => {
                                 <Picker.Item label="1 volet" value="1" />
                                 <Picker.Item label="2 volets" value="2" />
                                 <Picker.Item label="3 volets" value="3" />
-
                             </Picker>
                         </View>
                     )}
-
-
                 </View>
 
                 {!imageUri ? (
@@ -1012,7 +988,6 @@ const HomeScreen = () => {
                         </TouchableOpacity>
                     </View>
                 )}
-
 
                 {/* Affichage des onglets avec images */}
                 {(imageUri || svgContent) && (
@@ -1293,7 +1268,7 @@ const styles = StyleSheet.create({
     overlayButton: {
 
         width: '100%',
-        backgroundColor: "#333", // fond noir transparent
+        backgroundColor: "#333", 
         padding: 10,
         borderRadius: 8,
         height: 40,
@@ -1348,3 +1323,4 @@ const styles = StyleSheet.create({
 
 
 export default HomeScreen;
+
