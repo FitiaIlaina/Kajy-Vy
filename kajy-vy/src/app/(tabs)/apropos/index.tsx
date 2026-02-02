@@ -37,7 +37,6 @@ const AboutScreen = () => {
                 </View>
             </TouchableOpacity>
             
-         
             <View style={{ padding: 16 }}>
                 <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 8 }}>À propos</Text>
                 <Text style={{ fontSize: 13, marginBottom: 16 }}>
@@ -85,5 +84,6 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
 });
+
 
 export default AboutScreen;
