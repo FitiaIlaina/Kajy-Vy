@@ -5,10 +5,7 @@ import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { useAuth } from '@/components/AuthProvider'
 
-
 const logoImage = require('assets/images/kajyvy.png')
-
-
 
 const signup = () => {
     const [email, setEmail] = useState('');
@@ -19,7 +16,6 @@ const signup = () => {
     const [loading, setLoading] = useState(false);
 
     const { signup, isAuthenticated, isLoading } = useAuth();
-
 
     const SERVER_URL = 'http://localhost:5000';
 
@@ -34,8 +30,6 @@ const signup = () => {
     if (isAuthenticated) {
         return <Redirect href="/(tabs)/(accueil)" />
     }
-
-
 
     const SignUpButton = async () => {
         if (!name.trim() || !surname.trim() || !email.trim() || !password.trim() || !confirmPassword.trim()) {
@@ -151,8 +145,6 @@ const signup = () => {
                         }}>
                             <View style={{ marginBottom: 20 }}>
 
-
-
                                 <TextInput
                                     keyboardType="email-address"
                                     placeholder="Votre email"
@@ -172,8 +164,6 @@ const signup = () => {
                             </View>
                             <View style={{ marginBottom: 20 }}>
 
-
-
                                 <TextInput
                                     keyboardType="default"
                                     autoCapitalize="words"
@@ -192,8 +182,6 @@ const signup = () => {
 
                             </View>
                             <View style={{ marginBottom: 20 }}>
-
-
 
                                 <TextInput
                                     keyboardType="default"
@@ -227,15 +215,9 @@ const signup = () => {
                                     value={password}
                                 />
 
-
-
                             </View>
 
                             <View style={{ marginBottom: 28 }}>
-
-
-
-
 
                                 <TextInput
                                     secureTextEntry
@@ -252,9 +234,7 @@ const signup = () => {
 
                                 />
 
-
                             </View>
-
 
                             <TouchableOpacity
                                 style={[{
@@ -281,9 +261,7 @@ const signup = () => {
 
                                 )}
 
-
                             </TouchableOpacity>
-
 
                             <Link href="/" asChild style={{
                                 alignItems: 'center',
@@ -299,12 +277,9 @@ const signup = () => {
                             </Link>
                         </View>
 
-                        {/* Footer */}
-
                     </View>
                 </View>
             </ScrollView>
-
 
             <StatusBar style="dark" translucent={false} />
         </SafeAreaProvider>
@@ -353,5 +328,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#f8f9fa',
     },
 })
+
 
 export default signup
