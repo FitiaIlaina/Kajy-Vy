@@ -123,12 +123,10 @@ const DrawScreen = () => {
     const [activeTab, setActiveTab] = useState('1');
 
     const [typeVolet, setTypeVolet] = useState("");
-
     const [typeBati, setTypeBati] = useState("");
     const [typeCadre, setTypeCadre] = useState("");
     const [typeDeco, setTypeDeco] = useState("");
     const [typeTole, setTypeTole] = useState("");
-
 
     const [listBati, setListBati] = useState<any[]>([]);
     const [listCadrePorte, setListCadrePorte] = useState<any[]>([]);
@@ -136,11 +134,9 @@ const DrawScreen = () => {
     const [listDecoration, setListDecoration] = useState<any[]>([]);
     const [listTole, setListTole] = useState<any[]>([]);
 
-
     const zoneHeight = 300;
     const { addDevis } = useDevis();
     const SERVER_URL = 'http://localhost:5000';
-
 
     const PickerTypeFerData = async () => {
         const batiResp = await fetch(`${SERVER_URL}/bati`);
@@ -184,7 +180,7 @@ const DrawScreen = () => {
         const firstPoint = line[0];
         const lastPoint = line[line.length - 1];
 
-        //  les différences
+        //  différences
         const dx = Math.abs(lastPoint.x - firstPoint.x);
         const dy = Math.abs(lastPoint.y - firstPoint.y);
 
@@ -195,7 +191,7 @@ const DrawScreen = () => {
         const lineLength = Math.sqrt(dx * dx + dy * dy);
         if (lineLength < 50) return line;
 
-        // Si la ligne est proche de la verticale
+        // Si la ligne est proche du verticale
         if (dx < tolerance && dy > dx * 1.5) {
             const avgX = (firstPoint.x + lastPoint.x) / 2;
             const numPoints = Math.min(line.length, 10); // Limiter à 10 points
@@ -256,7 +252,6 @@ const DrawScreen = () => {
                 setIsDrawing(true);
                 setScrollEnabled(false);
 
-
                 const zoneIndex = Math.min(
                     Math.floor(gestureState.y0 / zoneHeight),
                     zoneCount - 1
@@ -302,7 +297,7 @@ const DrawScreen = () => {
                 });
             },
             onPanResponderRelease: () => {
-                // Rectifier la ligne avant de terminer
+                // Rectification la ligne avant de terminer
                 if (currentLine.current.length > 0 && lastZoneDrawnRef.current !== null) {
                     const straightened = straightenLine(currentLine.current);
 
@@ -483,11 +478,7 @@ const DrawScreen = () => {
                 setCleanImage(`data:image/png;base64,${result.image_preview}`);
                 setActiveTab('2');
             }
-
-
             result.type === 'grille' ? 'grille' : 'inconnu';
-
-
 
         } catch (error) {
             console.error('Erreur analyse:', error);
@@ -555,7 +546,7 @@ const DrawScreen = () => {
             let detailsHTML = '';
 
             if (analysisResult?.details) {
-                // BÂTI
+                // --------BÂTI
                 if (analysisResult?.details.bati) {
                     detailsHTML += `
                             <div class="detail-card">
@@ -575,7 +566,7 @@ const DrawScreen = () => {
                             </div>`;
                 }
 
-                // CADRE
+                // -----------------CADRE
                 if (analysisResult?.details.cadre) {
                     detailsHTML += `
                             <div class="detail-card">
@@ -595,7 +586,7 @@ const DrawScreen = () => {
                             </div>`;
                 }
 
-                // TÔLE
+                // ---------TÔLE
                 if (analysisResult?.details.tole) {
                     detailsHTML += `
                             <div class="detail-card">
@@ -615,7 +606,7 @@ const DrawScreen = () => {
                             </div>`;
                 }
 
-                // DÉCORATION
+                // --------------------DÉCORATION
                 if (analysisResult?.details.decoration) {
                     detailsHTML += `
                             <div class="detail-card">
@@ -635,7 +626,7 @@ const DrawScreen = () => {
                             </div>`;
                 }
 
-                // MAIN D'OEUVRE
+                //---------------- MAIN D'OEUVRE
                 if (analysisResult?.details.main_oeuvre) {
                     detailsHTML += `
                             <div class="detail-card">
@@ -647,7 +638,7 @@ const DrawScreen = () => {
                             </div>`;
                 }
 
-                // MAJORATION
+                //--------------------------------- MAJORATION
                 if (analysisResult?.details.majoration_30p) {
                     detailsHTML += `
                             <div class="detail-card">
@@ -664,7 +655,7 @@ const DrawScreen = () => {
                 detailsHTML = '<div class="no-details"><strong>Aucun détail disponible</strong></div>';
             }
 
-            // Generate a proper title for the PDF
+            // pdf titre
             const pdfTitle = `Devis ${analysisResult?.type?.toUpperCase() || 'Structure'} - ${new Date().toLocaleDateString('fr-FR')}`;
 
             const html = `<!DOCTYPE html>
@@ -758,12 +749,8 @@ const DrawScreen = () => {
                     <p><strong>Dimensions:</strong> ${largeur} m × ${hauteur} m</p>
                     <p><strong>Surface:</strong> ${surface} m²</p>
                 </div>
-                
-                
-                
                 <h2>Détails de l'analyse</h2>
                 ${detailsHTML}
-                
                 <div class="price">
                     <div style="font-size: 14px; margin-bottom: 8px;">PRIX TOTAL ESTIMÉ</div>
                     <div style="font-size: 24px; font-weight: bold;">${analysisResult?.prix_total?.toLocaleString() || 'N/A'} Ar</div>
@@ -1486,3 +1473,4 @@ const styles = StyleSheet.create({
 
 
 export default DrawScreen;
+
