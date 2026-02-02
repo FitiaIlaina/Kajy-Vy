@@ -9,18 +9,17 @@ interface Props {
 const SVGRenderer: React.FC<Props> = ({ svg, width = 400, height = 400 }) => {
   if (!svg) return null;
 
-  // Nettoyage du SVG
   const cleanedSvg = svg
     .replace(/<\?xml.*?\?>/, "")
     .replace(/<!DOCTYPE.*?>/, "")
     .trim();
 
-  // Extraction des informations du SVG original
+  // Extraction SVG original
   const viewBoxMatch = cleanedSvg.match(/viewBox="([^"]+)"/);
   const originalWidthMatch = cleanedSvg.match(/width="([^"]+)"/);
   const originalHeightMatch = cleanedSvg.match(/height="([^"]+)"/);
 
-  // Déterminer les dimensions du viewBox
+  //dimensions du viewBox
   let viewBoxValue = "0 0 700 450"; // valeur par défaut
   
   if (viewBoxMatch) {
@@ -33,10 +32,8 @@ const SVGRenderer: React.FC<Props> = ({ svg, width = 400, height = 400 }) => {
     }
   }
 
-  // Reconstruction complète du SVG avec les bonnes propriétés
+  // Reconstruction complète du SVG 
   let modifiedSvg = cleanedSvg;
-  
-  // Remplacer ou ajouter les attributs nécessaires
   if (modifiedSvg.includes('<svg')) {
     modifiedSvg = modifiedSvg.replace(
       /<svg[^>]*>/,
@@ -76,5 +73,6 @@ const SVGRenderer: React.FC<Props> = ({ svg, width = 400, height = 400 }) => {
     </div>
   );
 };
+
 
 export default SVGRenderer;
