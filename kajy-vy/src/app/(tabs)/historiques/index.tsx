@@ -8,10 +8,7 @@ import { Devis, useDevis } from 'src/contexts/DevisContext';
 import MobileSVGRenderer from '../(accueil)/MobileSVGRenderer';
 import SVGRenderer from '../(accueil)/SVGRenderer';
 
-
-
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-
 
 interface AnalysisResult {
     type: 'porte' | 'grille';
@@ -124,13 +121,10 @@ const HistoryScreen = () => {
         setClearAllModalVisible(false);
     };
 
-
-
-    const AfficherDetailDevis = (devis: Devis) => {
+   const AfficherDetailDevis = (devis: Devis) => {
         setSelectedDevis(devis);
         setDetailModalVisible(true);
     };
-
 
     const PdfHistory = async (devis: Devis) => {
         try {
@@ -139,12 +133,11 @@ const HistoryScreen = () => {
             console.log('Devis:', devis.title);
 
             const surface = devis.dimensions.surface.toFixed(2);
-
-            // Générer le HTML des détails
+            
             let detailsHTML = '';
 
             if (devis.details) {
-                // BÂTI
+                // ------Bati
                 if (devis.details.bati) {
                     detailsHTML += `
                 <div class="detail-card">
@@ -164,7 +157,7 @@ const HistoryScreen = () => {
                 </div>`;
                 }
 
-                // CADRE
+                // ---------------Cadre
                 if (devis.details.cadre) {
                     detailsHTML += `
                 <div class="detail-card">
@@ -184,7 +177,7 @@ const HistoryScreen = () => {
                 </div>`;
                 }
 
-                // TÔLE
+                // -----Tôle
                 if (devis.details.tole) {
                     detailsHTML += `
                 <div class="detail-card">
@@ -204,7 +197,7 @@ const HistoryScreen = () => {
                 </div>`;
                 }
 
-                // DÉCORATION
+                //------------ Decoration
                 if (devis.details.decoration) {
                     detailsHTML += `
                 <div class="detail-card">
@@ -223,9 +216,6 @@ const HistoryScreen = () => {
                     </div>
                 </div>`;
                 }
-
-
-
 
                 if (devis.details.majoration_30p) {
                     detailsHTML += `
@@ -282,10 +272,7 @@ const HistoryScreen = () => {
         <p><strong>Type:</strong> ${devis.type}</p>
         <p><strong>Dimensions:</strong> ${devis.dimensions.largeur} m × ${devis.dimensions.hauteur} m</p>
         <p><strong>Surface:</strong> ${surface} m²</p>
-    </div>
-    
-    
-    
+    </div>    
     <h2>Détails de l'analyse</h2>
     ${detailsHTML}
     
@@ -319,7 +306,6 @@ const HistoryScreen = () => {
                     Alert.alert('Erreur', 'Impossible d\'ouvrir la fenêtre d\'impression');
                 }
             } else {
-                // SOLUTION MOBILE: Utiliser expo-print
                 const result = await Print.printToFileAsync({
                     html,
                     base64: false
@@ -403,8 +389,6 @@ const HistoryScreen = () => {
                 )}
             </View>
 
-
-
             <ScrollView style={styles.scrollView}>
                 {filteredDevis.map(item => (
                     <TouchableOpacity
@@ -424,9 +408,7 @@ const HistoryScreen = () => {
 
                             <View style={styles.devisDetails}>
 
-
-
-                            </View>
+                           </View>
                         </View>
 
                         <View style={styles.devisActions}>
@@ -483,7 +465,6 @@ const HistoryScreen = () => {
                         <Text style={styles.deleteModalMessage}>
                             Êtes-vous sûr de vouloir supprimer le devis "{devisToDelete?.title}" ?
                         </Text>
-
 
 
                         <View style={styles.deleteModalButtons}>
@@ -553,7 +534,6 @@ const HistoryScreen = () => {
                     </View>
                 </View>
             </Modal>
-
 
             <Modal
                 visible={detailModalVisible}
@@ -1104,5 +1084,6 @@ const styles = StyleSheet.create({
     },
 
 });
+
 
 export default HistoryScreen;
