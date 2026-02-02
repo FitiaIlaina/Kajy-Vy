@@ -2,7 +2,6 @@
 export const SERVER_URL = __DEV__ 
   
    ? 'http://localhost:5000' 
-  : 'https://votre-api-production.com';
 
 // Clés de stockage AsyncStorage
 export const STORAGE_KEYS = {
@@ -20,4 +19,5 @@ export const ERROR_MESSAGES = {
   REQUIRED_FIELDS: 'Veuillez remplir tous les champs obligatoires',
   PASSWORD_MISMATCH: 'Les mots de passe ne correspondent pas',
   PASSWORD_TOO_SHORT: 'Le mot de passe doit contenir au moins 6 caractères',
+
 };
