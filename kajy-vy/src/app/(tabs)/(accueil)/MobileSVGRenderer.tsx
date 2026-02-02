@@ -18,13 +18,11 @@ const MobileSVGRenderer: React.FC<Props> = ({ svg, width = 380, height = 380 }) 
   }
 
   try {
-    // Nettoyer le SVG
     let cleanedSvg = svg
       .replace(/<\?xml.*?\?>/, "")
       .replace(/<!DOCTYPE.*?>/, "")
       .trim();
 
-    // Extraire les informations du viewBox
     const viewBoxMatch = cleanedSvg.match(/viewBox="([^"]+)"/);
     const widthMatch = cleanedSvg.match(/width="([^"]+)"/);
     const heightMatch = cleanedSvg.match(/height="([^"]+)"/);
@@ -41,7 +39,6 @@ const MobileSVGRenderer: React.FC<Props> = ({ svg, width = 380, height = 380 }) 
       }
     }
 
-    // S'assurer que le SVG a les bons attributs
     if (cleanedSvg.includes('<svg')) {
       cleanedSvg = cleanedSvg.replace(
         /<svg[^>]*>/,
@@ -84,5 +81,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
 
 export default MobileSVGRenderer;
