@@ -72,17 +72,14 @@ const TabsNavigation = () => {
                             tabBarIcon: ({ color }) => <Entypo name='info-with-circle' size={20} color={color} />,
                         }} />
 
-
-
                     </Tabs>
 
             </DevisProvider>
-
-
 
         </>
 
     )
 }
+
 
 export default TabsNavigation
