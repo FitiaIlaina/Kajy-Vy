@@ -41,9 +41,7 @@ const DrawScreenLayout = () => {
             console.log('Début déconnexion');
             setShowLogoutModal(false);
             setShowProfileMenu(false);
-
             await logout();
-
             console.log('Logout terminé');
 
         } catch (error) {
@@ -365,5 +363,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
     }
 });
+
 
 export default DrawScreenLayout;
