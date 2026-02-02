@@ -83,7 +83,7 @@ interface DevisProviderProps {
     children: ReactNode;
 }
 
-// Helper functions
+// fonctions helper
 const safeJsonParse = (jsonString: string | null | undefined, fallback: any = {}) => {
   try {
     if (!jsonString) return fallback;
@@ -103,9 +103,7 @@ const safeJsonStringify = (obj: any) => {
   }
 };
 
-// ===============================
-// SIMULATION SQLITE POUR WEB
-// ===============================
+// sqlite pour web pour le test
 
 class WebSQLiteSimulator {
   private dbName = 'kajy_vy_web';
@@ -258,9 +256,7 @@ class WebSQLiteSimulator {
   }
 }
 
-// ===============================
-// GESTION DE LA BASE DE DONNÉES
-// ===============================
+// BASE DE DONNÉES
 
 let db: any = null;
 const isWeb = Platform.OS === 'web';
@@ -270,7 +266,6 @@ const initializeDB = async () => {
     if (db) return db;
     
     if (isWeb) {
-      // Utiliser le simulateur SQLite pour web
       db = new WebSQLiteSimulator();
       await db.execAsync(`CREATE TABLE IF NOT EXISTS devis (
         id TEXT PRIMARY KEY NOT NULL,
@@ -288,7 +283,6 @@ const initializeDB = async () => {
         timestamp TEXT
       );`);
     } else {
-      // Utiliser le vrai SQLite sur mobile
       db = await SQLite.openDatabaseAsync('kajy_vy.db');
       await db.execAsync(
         `CREATE TABLE IF NOT EXISTS devis (
@@ -502,4 +496,5 @@ export const useDevis = (): DevisContextProps => {
     throw new Error('useDevis must be used within a DevisProvider');
   }
   return context;
+
 };
